@@ -1,5 +1,6 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask
+# from histogram import histdict my thing!
 
 
 app = Flask(__name__)
@@ -14,7 +15,7 @@ def before_first_request():
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
-    return "<p>TODO: Return a word here!</p>"
+    return "<p>TODO: Return a word here! bla blah, utilizing my sample function!</p>"
 
 
 if __name__ == "__main__":
