@@ -1,8 +1,3 @@
-# https://makeschool.org/mediabook/oa/tutorials/tweet-generator--data-structures---probability-with-python/analyze-word-frequency-in-text/
-# import sys
-
-# file = str(sys.argv[1])
-
 def read_file(filename):
   f = open(filename, 'r', encoding='utf-8-sig')
   words = f.read()
@@ -83,20 +78,21 @@ def frequency(word, histogram):
 
 
 
-# if __name__ == '__main__':
-#   corpus_list = read_file(file).replace(',', '').replace('.', '').replace('?', '').replace('"', '').replace('”', '').replace('’', '').replace('!', '').replace('/', '').replace(';', '').lower().split()
+if __name__ == '__main__':
+  file = ""
+  corpus_list = read_file(file).replace(',', '').replace('.', '').replace('?', '').replace('"', '').replace('”', '').replace('’', '').replace('!', '').replace('/', '').replace(';', '').lower().split()
 
-  # histogram_dictionary = histogram_dict(corpus_list)
-  # print(histogram_dictionary)
-#   print(unique_words(histogram_dictionary))
-#   print(frequency('sherlock', histogram_dictionary))
+  histogram_dictionary = histogram_dict(corpus_list)
+  print(histogram_dictionary)
+  print(unique_words(histogram_dictionary))
+  print(frequency('sherlock', histogram_dictionary))
 
-  # hist_list = histogram_list(corpus_list)
-  # print(hist_list)
-  # print(unique_words(hist_list))
-  # print(frequency('sherlock', hist_list))
+  hist_list = histogram_list(corpus_list)
+  print(hist_list)
+  print(unique_words(hist_list))
+  print(frequency('sherlock', hist_list))
 
-  # hist_tuple = histogram_tuple(corpus_list)
-  # print(hist_tuple)
-  # print(unique_words(hist_tuple))
+  hist_tuple = histogram_tuple(corpus_list)
+  print(hist_tuple)
+  print(unique_words(hist_tuple))
 

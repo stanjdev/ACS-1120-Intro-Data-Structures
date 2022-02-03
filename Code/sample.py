@@ -1,11 +1,8 @@
-import sys
 import random
 from histogram import read_file, histogram_dict
 
-# file = str(sys.argv[1])
-
 """ 
-
+PSEUDOCODE:
 take in file
 get dict histogram from it,
 loop through each value (number) of the histogram,
@@ -82,15 +79,6 @@ if __name__ == '__main__':
 
   
 
-  
-
-
-
-
-  
-
-
-
 """ 
 Stochastic Sampling, 
 Accumulate word count through list
@@ -125,8 +113,6 @@ random.uniform(0, 8)
 
 
 loop through object, make a list writing out how many times each word appears, then throw a dart.
-
-
 
  """
 
