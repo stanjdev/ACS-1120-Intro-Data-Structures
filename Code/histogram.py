@@ -17,7 +17,6 @@ def histogram_dict(source_text):
   return dict
 
 
-
 def histogram_list(source_text):
   lst = []
   
@@ -39,7 +38,6 @@ def histogram_list(source_text):
   return lst
 
 
-
 # NEEDS IMPROVEMENT - immutable data structure.
 def histogram_tuple(source_text):
   tuple_list = []
@@ -57,25 +55,19 @@ def histogram_tuple(source_text):
 
 
 def unique_words(dict):
-  return f'{len(dict)} unique words'
   # returns the total count of unique words in the histogram. For example, when given the histogram for The Adventures of Sherlock Holmes, it returns the integer 8475.
+  return f'{len(dict)} unique words'
 
-""" 
-word:
-histogram: 
- """
 def frequency(word, histogram):
+  # returns the number of times that word appears in a text. For example, when given the word "mystery" and the Holmes histogram, it will return the integer 20.
   # for lists
   for pair in histogram:
     if pair[0] == word:
       return pair[1]
 
-  # for dictionaries
+  # for dicts
   if word in histogram.keys():
     return histogram[word]
-
-  # returns the number of times that word appears in a text. For example, when given the word "mystery" and the Holmes histogram, it will return the integer 20.
-
 
 
 if __name__ == '__main__':

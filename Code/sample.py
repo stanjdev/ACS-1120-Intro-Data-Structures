@@ -1,5 +1,5 @@
 import random
-from histogram import read_file, histogram_dict
+from histogram import histogram_dict
 
 """ 
 PSEUDOCODE:
@@ -16,12 +16,6 @@ iterate the histogram word by word summing their values and
 keep checking if the random number is less than or equal to the current sum. That's your word!
 
  """
-
-
-# words_list = read_file(file).split()
-# histogram = histogram_dict(words_list)
-# length = len(words_list)
-
 
 # ACCUMULATION METHOD
 def sampler(words_list):
@@ -80,7 +74,7 @@ if __name__ == '__main__':
   
 
 """ 
-Stochastic Sampling, 
+Stochastic Sampling notes
 Accumulate word count through list
 where a uniform random number splits it
 
@@ -101,7 +95,6 @@ choose a random number, then iterate the list and check if the random number is 
 3 less than 5? yes. stop
 
 7 less than
-
 
 Generate a dart to throw on the number line, and return a word.
 randint(1, 8) hits only the fence posts.
