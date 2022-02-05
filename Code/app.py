@@ -13,9 +13,10 @@ def before_first_request():
     """Runs only once at Flask startup"""
     # TODO: Initialize your histogram, hash table, or markov chain here.
     corpus_list = read_file(file).replace(',', '').replace('.', '').replace('?', '').replace('"', '').replace('”', '').replace('’', '').replace('`', '').replace('!', '').replace('/', '').replace(';', '').replace(':', '').lower().split()
-    dictogram = Dictogram(corpus_list)
     # histogram = histogram_dict(corpus_list)
-    return dictogram
+    # histogram = Dictogram(corpus_list)
+    histogram = Listogram(corpus_list)
+    return histogram
 
 
 @app.route("/")
