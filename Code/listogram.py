@@ -21,24 +21,69 @@ class Listogram(list):
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
         # TODO: Increase word frequency by count
+        for pair in self:
+            if word == pair[0]:
+                pair[1] = pair[1] + count
+                break
+        else:
+            self.append([word, count])
+            self.types += 1
+        self.tokens += count
+
+        # found_pair = next((pair for pair in self if word in pair), None)
+        # if found_pair is not None:
+        #     found_pair[1] += 1
+        # else: 
+        #     self.append([word, count])
+        #     self.types += 1
+        # self.tokens += 1
+
+        # for pair in self:
+        #     if pair[0] == word:
+        #         pair[1] += count
+        #     else:
+        #         self.append([word, count])
+        #         self.types += 1
+        # self.tokens += 1
+        # return self
+
+
 
     def frequency(self, word):
         """Return frequency count of given word, or 0 if word is not found."""
         # TODO: Retrieve word frequency count
+        for pair in self:
+            if word == pair[0]:
+                return pair[1]
+        return 0
 
     def __contains__(self, word):
         """Return boolean indicating if given word is in this histogram."""
         # TODO: Check if word is in this histogram
+        for pair in self:
+            if word == pair[0]:
+                return True
+        return False
 
     def index_of(self, target):
         """Return the index of entry containing given target word if found in
         this histogram, or None if target word is not found."""
         # TODO: Implement linear search to find index of entry with target word
+        for entry, i in self:
+            if target == entry[0]:
+                return i
+        return None
 
     def sample(self):
         """Return a word from this histogram, randomly sampled by weighting
         each word's probability of being chosen by its observed frequency."""
         # TODO: Randomly choose a word based on its frequency in this histogram
+        target = 0
+        dart = random.uniform(0, self.tokens)
+        for pair in self:
+            target += pair[1]
+            if target >= dart:
+                return pair[0]
 
 
 def print_histogram(word_list):
