@@ -17,6 +17,3 @@ test = MyClass(['var', 'rsa', 'esf', 'fgsdfg', 'agaga', ])
 if __name__ == '__main__':
     print(test)
 
-
-
-

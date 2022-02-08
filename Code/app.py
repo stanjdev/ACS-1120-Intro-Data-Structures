@@ -7,6 +7,7 @@ from listogram import Listogram
 file = './data/socrates-apology.txt'
 
 app = Flask(__name__)
+word_list = read_file(file).replace(',', '').replace('.', '').replace('?', '').replace('"', '').replace('”', '').replace('’', '').replace('`', '').replace('!', '').replace('/', '').replace(';', '').replace(':', '').lower().split()
 
 @app.before_first_request
 def before_first_request():
@@ -15,7 +16,7 @@ def before_first_request():
     corpus_list = read_file(file).replace(',', '').replace('.', '').replace('?', '').replace('"', '').replace('”', '').replace('’', '').replace('`', '').replace('!', '').replace('/', '').replace(';', '').replace(':', '').lower().split()
     # histogram = histogram_dict(corpus_list)
     # histogram = Dictogram(corpus_list)
-    histogram = Listogram(corpus_list)
+    histogram = Listogram(word_list)
     return histogram
 
 

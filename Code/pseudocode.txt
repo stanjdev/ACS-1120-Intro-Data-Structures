@@ -1,0 +1,55 @@
+Markov Chain pseudocode
+https://tech-at-du.github.io/Tweet-Generator/#/P06-Generating-Sentences/README
+
+resulting dict: 
+{
+  one: {
+    fish: 1
+  },
+  fish: {
+    two: 1,
+    red: 1,
+    blue: 1
+  },
+  two: {
+    fish: 1
+  },
+  red: {
+    fish: 1
+  },
+  blue: {
+    fish: 1
+  }
+}
+
+one fish two fish red fish blue fish
+                                 ^
+
+def dict_of_histograms_generator(word_list)
+  start = first word in the list
+  dict_of_histograms: {}
+  loop through each word in word_list
+    if word is not in dict_of_histograms:
+      store that word into dict_of_histograms with a new dictionary with the word right after it (idx + 1) at count 1
+    else, if the word is already in dict_of_histograms:
+      update its dictionary with the word right after it (idx + 1), either increment or initialize it count 1 (check if word right after exists in sub dict, else new key it.)
+    
+    stops at end of list where there is no idx + 1 anymore
+  return dict_of_histograms
+
+
+Then to use the dict_of_histograms, 
+def tweet_generator(markov_chain_dict):
+  tweet = ''
+  start with start word ('one')
+  tweet += start word
+  char_limit = 280
+
+  while len(tweet) < char_limit:
+    last_word = tweet[-1]
+    next_word = sample(dict_of_histograms[last_word])
+    tweet += next_word
+
+  return tweet
+
+
