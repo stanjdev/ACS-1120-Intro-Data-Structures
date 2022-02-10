@@ -4,18 +4,25 @@
 
 A project based course that looks under the hood at data structures and algorithms to see how they work. In addition to implementing these structures in an application; students will build them from scratch, analyze their complexity, and benchmark their performance to gain an understanding of their tradeoffs and when to use them in practice. Students will write scripts, functions, and library modules to use text processing tools like regular expressions, construct and sample probability distributions to create a Markov language model and gain insight into how grammar works and natural language processing techniques.
 
-
 ## Repository Setup
 
 :warning: **Important:** Please follow [these instructions](Setup.md) exactly to set up your clone of this course repository.
 
+## Learning Objectives
+
+By the end of this course, students will be able to:
+1.   Create Python programs that read and write text files and manipulate strings
+1.   Build web apps with the Flask framework and deploy to the web
+1.   Construct and sample probability distributions based on observed word frequencies
+1.   Create Markov language models and use them to generate new sentences
+1.   Use unit tests that assert correct behavior of functions and classes
+1.   Implement core data structures including singly linked lists and hash tables
+1.   Analyze the complexity of iterative algorithms and data structures with visual loop counting
 
 ## Schedule
 
-**Course Dates:** Wednesday, January 19 – Friday, March 11, 2022
-
-**Class Times:** Monday, Wednesday, & Friday at 4:30-6:20pm
-
+**Course Dates:** Wednesday, January 20 – Friday, March 11, 2022<br>
+**Class Times:** Monday, Wednesday, & Friday at 4:30-6:20pm PST
 
 | Class | Lesson Topics                      | Deliverable Due or Quiz                                         |
 | :---: | :--------------------------------- | :-------------------------------------------------------------- |
@@ -54,38 +61,17 @@ A project based course that looks under the hood at data structures and algorith
 
 ### Deliverable Schedule
 
-| Deliverable                | Date Started | Date Due | Submission Form             |
-| :------------------------- | :----------: | :------: | :-------------------------- |
-| [Project Check-in][]       | Wed, Jan 19  |   TBD    | [Submit Project Check-in][] |
-| [Linked List Challenges][] |     TBD      |   TBD    | [Submit Linked List][]      |
-| [Hash Table Challenges][]  |     TBD      |   TBD    | [Submit Hash Table][]       |
-| [Final Project][]          |     TBD      |   TBD    | [Submit Final Project][]    |
+| Deliverable                  | Date Started |   Date Due    | Submission Form                                                                         |
+| :--------------------------- | :----------: | :-----------: | :-------------------------------------------------------------------------------------- |
+| **[Project Check-In]**       | Wed, Jan 19  |  Sun, Feb 6   | [Submit Project Check-In][https://www.gradescope.com/courses/76047/assignments/1826588] |
+| **[Linked List Challenges]** |  Mon, Feb 7  |  Sun, Feb 13  | [Submit Linked List][https://www.gradescope.com/courses/76047/assignments/1829207]      |
+| **[Hash Table Challenges]**  | Mon, Feb 14  |  Sun, Feb 20  | [Submit Hash Table][https://www.gradescope.com/courses/76047/assignments/1829208]       |
+| **[Final Project]**          | Mon, Feb 21  | Fri, March 11 | [Submit Final Project][https://www.gradescope.com/courses/76047/assignments/1826588]    |
 
-Read the [project rubric][] before the due date to ensure your code meets all expectations.
-
-[Project Check-in]: Lessons/FlaskWebApp.md
+[Project Check-In]: Lessons/FlaskWebApp.md
 [Linked List Challenges]: Lessons/ArraysLinkedLists.md#Challenges
 [Hash Table Challenges]: Lessons/HashTables.md#Challenges
 [Final Project]: Lessons/MarkovChains.md
-
-[Submit Project Check-in]: https://gradescope.com
-[Submit Linked List]: https://gradescope.com
-[Submit Hash Table]: https://gradescope.com
-[Submit Final Project]: https://gradescope.com
-
-[project rubric]: https://make.sc/cs12-rubric
-
-
-## Learning Objectives
-
-By the end of this course, students will be able to:
-1.   Create Python programs that read and write text files and manipulate strings
-1.   Build web apps with the Flask framework and deploy to the web
-1.   Construct and sample probability distributions based on observed word frequencies
-1.   Create Markov language models and use them to generate new sentences
-1.   Use unit tests that assert correct behavior of functions and classes
-1.   Implement core data structures including singly linked lists and hash tables
-1.   Analyze the complexity of iterative algorithms and data structures with visual loop counting
 
 
 ## Project Tutorial
@@ -99,7 +85,7 @@ Students will complete the following guided project tutorial in this course:
 To pass this course, students must meet the following requirements:
 -   Actively participate in class and abide by the attendance policy
 -   Make up all classwork from all absences
--   Complete the required project tutorial
+-   Complete the required [project tutorial](#project-tutorial)
 -   Pass the project according to the associated [project rubric][]
 -   Pass the summative assessment (total of all quiz scores)
     - Review the [quiz study guides][] with the lesson topics and learning outcomes (skills) you need to demonstrate, links to the best lesson activities, slides, and resources to review while preparing
