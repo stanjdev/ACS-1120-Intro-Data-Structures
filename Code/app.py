@@ -4,6 +4,8 @@ from histogram import histogram_dict, read_file
 from sample import sampler
 from dictogram import Dictogram
 from listogram import Listogram
+from markov_chain import dict_of_histograms_generator, tweet_generator
+
 file = './data/socrates-apology.txt'
 
 app = Flask(__name__)
@@ -24,9 +26,12 @@ def before_first_request():
 def home():
     histogram = before_first_request()
     chosen_word = histogram.sample()
+
+    markov_chain = dict_of_histograms_generator(word_list)
+    tweet = tweet_generator(markov_chain)
     # chosen_word = sampler(histogram)
     """Route that returns a web page containing the generated text."""
-    return render_template('index.html', chosen_word=chosen_word, histogram=histogram)
+    return render_template('index.html', chosen_word=chosen_word, histogram=histogram, tweet=tweet)
 
 
 if __name__ == "__main__":
