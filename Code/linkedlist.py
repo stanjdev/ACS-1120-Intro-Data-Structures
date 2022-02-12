@@ -78,6 +78,7 @@ class LinkedList:
         # TODO: Else append node after tail
         else:
             self.tail.next = node
+            self.tail = node
 
 
     def prepend(self, item):
@@ -90,6 +91,10 @@ class LinkedList:
         # TODO: Prepend node before head, if it exists
         if self.is_empty() == False:
             node.next = self.head
+            self.head = node
+        else:
+            self.head = node
+            self.tail = node
 
     def find(self, item):
         """Return an item from this linked list if it is present.
@@ -100,12 +105,13 @@ class LinkedList:
         """
         # TODO: Loop through all nodes to find item, if present return True otherwise False
         node = self.head
-        if node == item or self.tail == item:
+        if node.data == item or self.tail.data == item:
             return True
+        node = node.next
         while node is not None:
-            node = node.next
-            if node == item:
+            if node.data == item:
                 return True
+            node = node.next
         return False
 
     def delete(self, item):
@@ -116,18 +122,30 @@ class LinkedList:
         
         """
         # TODO: Loop through all nodes to find one whose data matches given item
-        if self.head == item:
-            self.head.next = None
-            return 
-        node = self.head.next
+        if self.length() < 1:
+            raise ValueError('Linked List is empty. Item does not exist: {}'.format(item))
+        if self.head.data == item and self.tail.data == item:
+            self.head = None
+            self.tail = None
+            return
+        if self.head.data == item:
+            node_to_delete = self.head
+            self.head = self.head.next
+            node_to_delete.next = None
+            return
         prev_node = self.head
+        node = self.head.next
         while node is not None:
-            if node == item:
+            if node.data == item: # You found your match
         # TODO: Update previous node to skip around node with matching data
+                if node.next == None: # we hit the tail
+                    self.tail = prev_node
                 prev_node.next = node.next
+                node.next = None
                 return
-            prev_node = node
-            node = node.next
+            else: # Keep traversing
+                prev_node = node
+                node = node.next
         raise ValueError('Item not found: {}'.format(item))
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
