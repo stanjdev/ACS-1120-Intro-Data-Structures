@@ -42,7 +42,12 @@ class HashTable(object):
         """Return a list of all values in this hash table.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all buckets
+        all_values = []
+        for bucket in self.buckets:
         # TODO: Collect all values in each bucket
+            for key, value in bucket.items():
+                all_values.append(value)
+        return all_values
 
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
@@ -57,38 +62,80 @@ class HashTable(object):
         """Return the number of key-value entries by traversing its buckets.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all buckets
+        count = 0
+        for bucket in self.buckets:
         # TODO: Count number of key-value entries in each bucket
+            for key, value in bucket.items():
+                count += 1
+        return count
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
+        index = self._bucket_index(key)
         # TODO: Check if key-value entry exists in bucket
-
+        if not self.buckets[index].is_empty():
+            for pair in self.buckets[index].items():
+                if pair[0] == key:
+                    return True
+        return False
+        
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
+        index = self._bucket_index(key)
+        bucket_list = self.buckets[index].items()
+        if len(bucket_list) < 1:
+            raise KeyError('Key not found: {}'.format(key))
         # TODO: Check if key-value entry exists in bucket
+        for pair in bucket_list:
         # TODO: If found, return value associated with given key
+            if pair[0] == key:
+                return pair[1]
         # TODO: Otherwise, raise error to tell user get failed
+            else: 
+                raise KeyError('Key not found: {}'.format(key))
         # Hint: raise KeyError('Key not found: {}'.format(key))
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
+        index = self._bucket_index(key)
         # TODO: Check if key-value entry exists in bucket
+        bucket_list = self.buckets[index].items()
+        if len(bucket_list) < 1:
+            self.buckets[index].append((key, value))
+            return 
+        for pair in bucket_list:
         # TODO: If found, update value associated with given key
+            if pair[0] == key:
+                print('found! now updating')
+                temp = list(pair)
+                temp[1] = value
+                pair = tuple(temp)
         # TODO: Otherwise, insert given key-value entry into bucket
+            else:
+                self.buckets[index].append((key, value))
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
+        index = self._bucket_index(key)
         # TODO: Check if key-value entry exists in bucket
+        bucket_list = self.buckets[index].items()
+        if len(bucket_list) < 1:
+            raise KeyError('Key not found: {}'.format(key))
+        for pair in bucket_list:
         # TODO: If found, delete entry associated with given key
+            if pair[0] == key:
+                self.buckets[index].delete(pair)
         # TODO: Otherwise, raise error to tell user delete failed
+            else:
+                raise KeyError('Key not found: {}'.format(key))
         # Hint: raise KeyError('Key not found: {}'.format(key))
 
 if __name__ == '__main__':
