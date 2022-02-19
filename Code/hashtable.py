@@ -26,11 +26,14 @@ class HashTable(object):
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
         # Calculate the given key's hash code and transform into bucket index
-        return hash(key) % len(self.buckets)
+        the_hash = hash(key)
+        index = the_hash % len(self.buckets)
+        print(the_hash)
+        return index
 
     def keys(self):
         """Return a list of all keys in this hash table.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(n^2) Why and under what conditions?"""
         # Collect all keys in each bucket
         all_keys = []
         for bucket in self.buckets:
@@ -51,7 +54,7 @@ class HashTable(object):
 
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions?"""
         # Collect all pairs of key-value entries in each bucket
         all_items = []
         for bucket in self.buckets:
@@ -60,13 +63,14 @@ class HashTable(object):
 
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(n^2) Why and under what conditions?"""
         # TODO: Loop through all buckets
         count = 0
         for bucket in self.buckets:
         # TODO: Count number of key-value entries in each bucket
-            for key, value in bucket.items():
-                count += 1
+            # for key, value in bucket.items():
+            #     count += 1
+            count += bucket.length()
         return count
 
     def contains(self, key):
@@ -74,11 +78,19 @@ class HashTable(object):
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
         index = self._bucket_index(key)
+        bucket = self.buckets[index]
         # TODO: Check if key-value entry exists in bucket
-        if not self.buckets[index].is_empty():
-            for pair in self.buckets[index].items():
-                if pair[0] == key:
-                    return True
+        if not bucket.is_empty():
+            entry = bucket.find_if_matches(lambda entry: entry[0] == key)
+            if entry is not None:
+                return True
+            else:
+                return False
+
+        # # list way: 
+        #     for pair in self.buckets[index].items():
+        #         if pair[0] == key:
+        #             return True
         return False
         
     def get(self, key):
@@ -87,6 +99,27 @@ class HashTable(object):
         # TODO: Find bucket where given key belongs
         index = self._bucket_index(key)
         bucket_list = self.buckets[index].items()
+
+        bucket = self.buckets[index]
+
+        # Attempt to find key-value entry in bucket (if it exists)
+        # Define inner function (closure that captures local key variable)
+        def matches_key(entry):
+            return entry[0] == key
+
+        # entry = bucket.find_if_matches(matches_key)
+
+        # Alternative: as a lambda: (anonymous function) rolls through all bucket entries, and for each entry, if it matches the key. 
+        entry = bucket.find_if_matches(lambda entry: entry[0] == key)
+        # entry = bucket.find_if_matches(lambda k, v: k == entry)
+
+        if entry is not None:
+            value = entry[1]
+            return value
+        else:
+            raise KeyError('Key not found: {}'.format(key))
+            
+        # if the linked list was a list
         if len(bucket_list) < 1:
             raise KeyError('Key not found: {}'.format(key))
         # TODO: Check if key-value entry exists in bucket
@@ -106,19 +139,33 @@ class HashTable(object):
         index = self._bucket_index(key)
         # TODO: Check if key-value entry exists in bucket
         bucket_list = self.buckets[index].items()
-        if len(bucket_list) < 1:
-            self.buckets[index].append((key, value))
-            return 
-        for pair in bucket_list:
-        # TODO: If found, update value associated with given key
-            if pair[0] == key:
-                print('found! now updating')
-                temp = list(pair)
-                temp[1] = value
-                pair = tuple(temp)
-        # TODO: Otherwise, insert given key-value entry into bucket
-            else:
-                self.buckets[index].append((key, value))
+        bucket = self.buckets[index]
+
+        # def matches_key(entry):
+        #     return entry[0] == key
+            
+        entry = bucket.find_if_matches(lambda entry: entry[0] == key)
+
+        if entry is not None:
+            temp = list(entry)
+            temp[1] = value
+            entry = tuple(temp)
+        else:
+            bucket.append((key, value))
+
+        # if len(bucket_list) < 1:
+        #     self.buckets[index].append((key, value))
+        #     return 
+        # for pair in bucket_list:
+        # # TODO: If found, update value associated with given key
+        #     if pair[0] == key:
+        #         print('found! now updating')
+        #         temp = list(pair)
+        #         temp[1] = value
+        #         pair = tuple(temp)
+        # # TODO: Otherwise, insert given key-value entry into bucket
+        #     else:
+        #         self.buckets[index].append((key, value))
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
@@ -127,6 +174,13 @@ class HashTable(object):
         index = self._bucket_index(key)
         # TODO: Check if key-value entry exists in bucket
         bucket_list = self.buckets[index].items()
+        bucket = self.buckets[index]
+
+        entry = bucket.find_if_matches(lambda entry: entry[0] == key)
+
+        if entry is not None:
+            pass
+
         if len(bucket_list) < 1:
             raise KeyError('Key not found: {}'.format(key))
         for pair in bucket_list:
@@ -141,3 +195,29 @@ class HashTable(object):
 if __name__ == '__main__':
     ht = HashTable()
     print('hash table: {}'.format(ht))
+
+
+
+
+""" 
+Hash Table Worksheet
+
+
+An array
+Several Linked Lists
+
+hash
+value
+index
+
+tuple
+index
+list
+
+hash the key, modulus it, that's the index, 
+
+
+ """
+
+
+
