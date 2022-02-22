@@ -28,7 +28,7 @@ class HashTable(object):
         # Calculate the given key's hash code and transform into bucket index
         the_hash = hash(key)
         index = the_hash % len(self.buckets)
-        print(the_hash)
+        print(f"{key} hash:", the_hash)
         return index
 
     def keys(self):
@@ -115,22 +115,23 @@ class HashTable(object):
 
         if entry is not None:
             value = entry[1]
+            print("value now is:", value)
             return value
         else:
             raise KeyError('Key not found: {}'.format(key))
             
-        # if the linked list was a list
-        if len(bucket_list) < 1:
-            raise KeyError('Key not found: {}'.format(key))
-        # TODO: Check if key-value entry exists in bucket
-        for pair in bucket_list:
-        # TODO: If found, return value associated with given key
-            if pair[0] == key:
-                return pair[1]
-        # TODO: Otherwise, raise error to tell user get failed
-            else: 
-                raise KeyError('Key not found: {}'.format(key))
-        # Hint: raise KeyError('Key not found: {}'.format(key))
+        # # if the linked list was a list
+        # if len(bucket_list) < 1:
+        #     raise KeyError('Key not found: {}'.format(key))
+        # # TODO: Check if key-value entry exists in bucket
+        # for pair in bucket_list:
+        # # TODO: If found, return value associated with given key
+        #     if pair[0] == key:
+        #         return pair[1]
+        # # TODO: Otherwise, raise error to tell user get failed
+        #     else: 
+        #         raise KeyError('Key not found: {}'.format(key))
+        # # Hint: raise KeyError('Key not found: {}'.format(key))
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
@@ -149,7 +150,9 @@ class HashTable(object):
         if entry is not None:
             temp = list(entry)
             temp[1] = value
+            bucket.delete(entry) # Must delete existing node entirely first
             entry = tuple(temp)
+            bucket.append(entry) # And then must append the 'new updated' node
         else:
             bucket.append((key, value))
 
@@ -179,18 +182,20 @@ class HashTable(object):
         entry = bucket.find_if_matches(lambda entry: entry[0] == key)
 
         if entry is not None:
-            pass
-
-        if len(bucket_list) < 1:
+            bucket.delete(entry)
+        else:
             raise KeyError('Key not found: {}'.format(key))
-        for pair in bucket_list:
-        # TODO: If found, delete entry associated with given key
-            if pair[0] == key:
-                self.buckets[index].delete(pair)
-        # TODO: Otherwise, raise error to tell user delete failed
-            else:
-                raise KeyError('Key not found: {}'.format(key))
-        # Hint: raise KeyError('Key not found: {}'.format(key))
+
+        # if len(bucket_list) < 1:
+        #     raise KeyError('Key not found: {}'.format(key))
+        # for pair in bucket_list:
+        # # TODO: If found, delete entry associated with given key
+        #     if pair[0] == key:
+        #         self.buckets[index].delete(pair)
+        # # TODO: Otherwise, raise error to tell user delete failed
+        #     else:
+        #         raise KeyError('Key not found: {}'.format(key))
+        # # Hint: raise KeyError('Key not found: {}'.format(key))
 
 if __name__ == '__main__':
     ht = HashTable()
