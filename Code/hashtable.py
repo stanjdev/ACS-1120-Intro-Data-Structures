@@ -115,7 +115,7 @@ class HashTable(object):
 
         if entry is not None:
             value = entry[1]
-            print("value now is:", value)
+            # print("value now is:", value)
             return value
         else:
             raise KeyError('Key not found: {}'.format(key))
