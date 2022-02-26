@@ -6,55 +6,61 @@ file = './data/dogs_cats.txt'
 # file = './data/socrates-apology.txt'
 word_list = read_file(file).replace(',', '').replace('.', '').replace('?', '').replace('"', '').replace('”', '').replace('’', '').replace('`', '').replace('!', '').replace('/', '').replace(';', '').replace(':', '').lower().split()
 
+ORDER = 2
 
-def dict_of_histograms_generator(word_list):
-    start = word_list[0]
-    dict_of_histograms = {}
-    for i in range(len(word_list) - 2):
-        word = word_list[i]
-        next_word = word_list[i + 1]
-
+def markov_chain_generator(corpus):
+    markov_dict = {}
+    for i in range(len(corpus) - ORDER):
+        word = corpus[i]
+        next_word = corpus[i + 1]
         tup = tuple([word, next_word])
-        last_word = tup[1]
-        next_next_word = word_list[i + 2]
+        token = corpus[i + ORDER]
+        # Loop back around
+        if i + 1 == len(corpus) - ORDER:
+            token = corpus[0]
+        if i + 2 == len(corpus) - ORDER:
+            token = corpus[1]
+        """ 
+        [
+            ((I, like), dogs), 
+            ((like, dogs), and), -- the tuple 'window'
+        ] 
+         """
 
-        # I think I want to be able to search every histogram's key only the [1] index position of each tuple? 
-        if tup not in dict_of_histograms:
+        if tup not in markov_dict:
             histogram = Dictogram()
-            histogram.add_count(next_next_word)
-            dict_of_histograms[tup] = histogram
+            histogram.add_count(token)
+            markov_dict[tup] = histogram
         else:
-            dict_of_histograms[tup].add_count(next_next_word)
+            markov_dict[tup].add_count(token)
+    return markov_dict
 
-        # if word not in dict_of_histograms:
-        #     histogram = Dictogram()
-        #     histogram.add_count(next_word)
-        #     dict_of_histograms[word] = histogram
-        # else:
-        #     dict_of_histograms[word].add_count(next_word)
-    return dict_of_histograms
-
-def tweet_generator(markov_chain_dict):
+def walk(markov_chain_dict, char_limit = 140):
     tweet = ''
     start = next(iter(markov_chain_dict))[0]
     second_word = next(iter(markov_chain_dict))[1]
     tweet += start + " " + second_word
-    char_limit = 140
 
     while len(tweet) < char_limit:
         tweet_list = tweet.split()
+        # print(tweet_list)
         last_word = tweet_list[-1]
         last_last_word = tweet_list[-2]
+        # print(last_word, last_last_word)
         tup = tuple([last_last_word, last_word])
+        # print(tup)
         last_word_histogram = markov_chain_dict[tup]
+        # print(last_word_histogram)
         next_word = last_word_histogram.sample()
+        # print(next_word)
         tweet += ' ' + next_word
+        # print(tweet)
     return tweet
 
 
 if __name__ == '__main__':
-    markov_chain = dict_of_histograms_generator(word_list)
-    tweet = tweet_generator(markov_chain)
+    markov_chain = markov_chain_generator(word_list)
+    tweet = walk(markov_chain)
     print(tweet)
 
 
@@ -134,5 +140,55 @@ RESULTING DICT:
         “like”: 1
     },
 }
+
+
+
+pseudocode
+
+def create_markov(word_list):
+    take in a word list
+    iterate every two words (if they exist)
+    [i]
+    [i + 1]
+    put both words in a tuple
+    Check if this tuple was in a dictionary, 
+        if it was, increment the count for the next word (+1)
+        else: make a new entry with the value being the next word initialized to 1
+    return markov chain
+
+markov_chain = create_markov(word_list)
+
+example = {
+    (cats, I) : {
+        like: 1
+    },
+    (I, like): {
+        dogs: 1,
+        cats: 1
+    },
+    (like, dogs): {
+        and: 1,
+    },
+}
+
+seed the first word to be the first word of the word list ("I")
+sentence = wordlist[0]
+"I like dogs"
+
+loop for until we hit our sentence length limit:
+    check if sentence[-1] is in any of the tuples[1] keys in our markov_chain,
+    and then use sample() function to choose the next word from that histogram,
+    append that word to the sentence
+return sentence
+
+
+
+
+
+
+
+
+
+
 
  """
