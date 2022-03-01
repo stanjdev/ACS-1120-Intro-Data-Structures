@@ -1,25 +1,22 @@
 # https://tech-at-du.github.io/Tweet-Generator/#/P10-Markov-Chains-Revisited/README
 from histogram import histogram_dict, read_file
 from dictogram import Dictogram
+from tokenize import tokenize
 # file = './data/fish.txt'
-file = './data/dogs_cats.txt'
-# file = './data/socrates-apology.txt'
-word_list = read_file(file).replace(',', '').replace('.', '').replace('?', '').replace('"', '').replace('”', '').replace('’', '').replace('`', '').replace('!', '').replace('/', '').replace(';', '').replace(':', '').lower().split()
+# file = './data/dogs_cats.txt'
+file = './data/socrates-apology.txt'
+word_list = tokenize(read_file(file))
+print(word_list)
 
 ORDER = 2
 
 def markov_chain_generator(corpus):
     markov_dict = {}
-    for i in range(len(corpus) - ORDER):
+    for i in range(len(corpus)):
         word = corpus[i]
-        next_word = corpus[i + 1]
+        next_word = corpus[(i + 1) % len(corpus)]
         tup = tuple([word, next_word])
-        token = corpus[i + ORDER]
-        # Loop back around
-        if i + 1 == len(corpus) - ORDER:
-            token = corpus[0]
-        if i + 2 == len(corpus) - ORDER:
-            token = corpus[1]
+        token = corpus[(i + ORDER) % len(corpus)]
         """ 
         [
             ((I, like), dogs), 
@@ -60,6 +57,7 @@ def walk(markov_chain_dict, char_limit = 140):
 
 if __name__ == '__main__':
     markov_chain = markov_chain_generator(word_list)
+    # print(markov_chain)
     tweet = walk(markov_chain)
     print(tweet)
 
