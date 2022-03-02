@@ -1,7 +1,7 @@
 # https://tech-at-du.github.io/Tweet-Generator/#/P10-Markov-Chains-Revisited/README
 from histogram import histogram_dict, read_file
 from dictogram import Dictogram
-from tokenize import tokenize
+from tokens import tokenize
 # file = './data/fish.txt'
 # file = './data/dogs_cats.txt'
 file = './data/socrates-apology.txt'
