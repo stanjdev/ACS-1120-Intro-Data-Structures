@@ -1,6 +1,6 @@
 import os
 import dotenv
-dotenv.load_dotenv("../env")
+dotenv.load_dotenv("../.env")
 from requests_oauthlib import OAuth1Session
 
 consumer_key = os.environ.get("TWITTER_CONSUMER_KEY")
@@ -9,8 +9,6 @@ access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
 access_token_secret = os.environ.get("TWITTER_ACCESS_TOKEN_SECRET")
 
 # print(os.environ)
-print(consumer_key)
-
 
 session = OAuth1Session(consumer_key,
                       client_secret=consumer_secret,
@@ -24,10 +22,10 @@ url = 'https://api.twitter.com/2/tweets'
 # The contents of status (i.e. tweet text)
 status = 'If you are reading this on Twitter, the API request worked!'
 
-# # Send a POST request to the url with a 'status' parameter
-# resp = session.post(url, json={ 'text': status })
-
-# # Show the text from the response
-# print(resp.text)
+def tweet(status):
+  # Send a POST request to the url with a 'status' parameter
+  resp = session.post(url, json={ 'text': status })
+  # Show the text from the response
+  return resp.text
 
 

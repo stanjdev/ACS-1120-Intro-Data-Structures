@@ -2,15 +2,14 @@
 from histogram import histogram_dict, read_file
 from dictogram import Dictogram
 from tokens import tokenize
+import random
 # file = './data/fish.txt'
 # file = './data/dogs_cats.txt'
 file = './data/socrates-apology.txt'
 word_list = tokenize(read_file(file))
-print(word_list)
+# print(word_list)
 
-ORDER = 2
-
-def markov_chain_generator(corpus):
+def markov_chain_generator(corpus, ORDER = 2):
     markov_dict = {}
     for i in range(len(corpus)):
         word = corpus[i]
@@ -34,36 +33,37 @@ def markov_chain_generator(corpus):
 
 def walk(markov_chain_dict, char_limit = 140):
     tweet = ''
+    # keys_list = list(markov_chain_dict.items())
+    # random_start = random.choice(keys_list)
+    # print(random_start)
+    # print(random_start[0][0])
+    # print(random_start[0][1])
+    # start = random_start[0][0]
+    # second_word = random_start[0][1]
     start = next(iter(markov_chain_dict))[0]
     second_word = next(iter(markov_chain_dict))[1]
+    # print(start, second_word)
     tweet += start + " " + second_word
 
     while len(tweet) < char_limit:
         tweet_list = tweet.split()
-        # print(tweet_list)
         last_word = tweet_list[-1]
         last_last_word = tweet_list[-2]
-        # print(last_word, last_last_word)
         tup = tuple([last_last_word, last_word])
-        # print(tup)
         last_word_histogram = markov_chain_dict[tup]
-        # print(last_word_histogram)
         next_word = last_word_histogram.sample()
-        # print(next_word)
         tweet += ' ' + next_word
-        # print(tweet)
     return tweet
 
 
 if __name__ == '__main__':
     markov_chain = markov_chain_generator(word_list)
-    # print(markov_chain)
     tweet = walk(markov_chain)
     print(tweet)
 
 
 
-
+# NOT USED
 class Queue():
     def __init__(self):
         self.queue = []

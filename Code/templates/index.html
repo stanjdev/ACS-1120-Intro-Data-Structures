@@ -6,16 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Socratweet</title>
 </head>
-<body>
-
+<body style="background: darkgray;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <h1>Tweet:</h1>
-    <h2>{{ tweet }}</h2>
-    
-    <h1>Sampled Word:</h1>
-    <h2>{{ chosen_word }}</h2>
+    <h1>Socratweets</h1>
+    <h2>Socrates says:</h2>
+    <blockquote>{{ sentence }}</blockquote>
+    <form action="/tweet" method="post">
+      <input type="hidden" name="sentence" value="{{ sentence }}">
+      <button type="submit">Tweet this</button>
+    </form>
   </div>
-  <h3>From histogram:</h3>
-  <h4>{{ histogram }}</h4>
 </body>
 </html>
