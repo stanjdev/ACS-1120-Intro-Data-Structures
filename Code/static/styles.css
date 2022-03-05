@@ -1,0 +1,48 @@
+html {
+  color: white;
+}
+
+body {
+  background: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+}
+
+.tweetContainer {
+  background-color: black;
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start;
+  border: 1px solid grey;
+  width: 55%;
+  border-radius: 30px;
+  padding: 30px;
+}
+
+button {
+  display: flex;
+  justify-self: flex-end;
+  padding: 15px;
+  margin-top: 30px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.profileLine {
+  display: flex;
+  align-items: center;
+}
+
+.profilePic {
+  height: 90px;
+  width: 90px;
+  background-color: white;
+  border-radius: 100%;
+  margin-right: 20px;
+}
+

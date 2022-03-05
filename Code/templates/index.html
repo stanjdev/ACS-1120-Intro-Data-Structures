@@ -5,16 +5,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Socratweet</title>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
 </head>
-<body style="background: darkgray;">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <h1>Socratweets</h1>
-    <h2>Socrates says:</h2>
-    <blockquote>{{ sentence }}</blockquote>
-    <form action="/tweet" method="post">
-      <input type="hidden" name="sentence" value="{{ sentence }}">
-      <button type="submit">Tweet this</button>
-    </form>
+<body>
+  <div class="tweetContainer">
+    <a href="https://twitter.com/Socratweet1" target="_blank" alt="twitter-link" rel="noopener noreferrer">
+      <div class="profileLine">
+        <img class="profilePic" src="{{ url_for('static',filename='socrates.png') }}" />
+        <h1>Socratweets</h1>
+      </div>
+    </a>
+    <blockquote>
+      <h2>Socrates says:</h2>
+      {{ sentence }}
+      <form action="/tweet" method="post">
+        <input type="hidden" name="sentence" value="{{ sentence }}">
+        <button type="submit">Tweet this</button>
+      </form>
+    </blockquote>
   </div>
 </body>
 </html>
